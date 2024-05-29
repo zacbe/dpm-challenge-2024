@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from "axios"
 
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL
+
 export default function RecordingView() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -67,9 +69,7 @@ export default function RecordingView() {
     formData.append("email", email)
 
     try {
-      // TODO: Replace example.com with API endpoint
-      // add as environment variable???
-      const response = await axios.post(`https://webhook.site/e702dfcd-b9f7-49f8-9ed7-a957961d7ad6`, formData, {
+      const response = await axios.post(`${apiBaseUrl}/recordings/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
