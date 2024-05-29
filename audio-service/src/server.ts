@@ -1,9 +1,10 @@
 import express, { Express, Response, Request } from "express";
 
+import { recordingRouter } from './api/routes';
+
 const app: Express = express()
 
-app.get("/", (_req: Request, res: Response) => {
-  res.status(200).json({ message: "Hello World" })
-})
+// Routes
+app.use('/api/v1', recordingRouter);
 
 export { app }
