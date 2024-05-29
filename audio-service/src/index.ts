@@ -1,11 +1,8 @@
 import { app } from './server';
+import { env } from './utils/envConfig';
 
-const NODE_ENV = "development"
-const HOST = "localhost"
-const PORT = "3000"
-
-const server = app.listen(PORT, () => {
-
+const server = app.listen(env.PORT, () => {
+  const { NODE_ENV, HOST, PORT } = env;
   console.info(`Server (${NODE_ENV}) running on port http://${HOST}:${PORT}`);
 });
 
