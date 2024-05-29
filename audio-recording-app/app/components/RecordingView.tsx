@@ -1,9 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 export default function RecordingView() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("")
+  const [email, setEmail] = useState<string>("");
+  const [recording, setRecording] = useState<Blob | null>(null)
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const [audioURL, setAudioURL] = useState<string | null>(null);
 
   useEffect(() => {
     if (isRecording) {
@@ -18,11 +21,34 @@ export default function RecordingView() {
   }
 
   const startRecording = () => {
-    setIsRecording(true)
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        const mediaRecorder = new MediaRecorder(stream)
+        mediaRecorderRef.current = mediaRecorder
+
+        const audioChunks: Blob[] = []
+
+        mediaRecorder.ondataavailable = (e) => {
+          audioChunks.push(e.data)
+        }
+
+        mediaRecorder.onstop = (_e) => {
+          const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" })
+          setRecording(audioBlob)
+          setAudioURL(URL.createObjectURL(audioBlob))
+        }
+
+        mediaRecorder.start()
+      })
+      .catch(err => {
+        console.error("Error accessing audio stream:", err)
+      })
   }
 
   const stopRecording = () => {
-    setIsRecording(false)
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop()
+    }
   }
 
   const handleUpload = async () => { }
@@ -97,6 +123,9 @@ export default function RecordingView() {
             </svg>
           </button>
         </div>
+
+        {/* Audio Playback */}
+        
       </div>
     </div>
   )
