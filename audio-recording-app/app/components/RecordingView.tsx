@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import axios from "axios"
+
 export default function RecordingView() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -21,6 +23,9 @@ export default function RecordingView() {
   }
 
   const startRecording = () => {
+    setRecording(null)
+    setAudioURL(null)
+
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then(stream => {
         const mediaRecorder = new MediaRecorder(stream)
@@ -51,7 +56,25 @@ export default function RecordingView() {
     }
   }
 
-  const handleUpload = async () => { }
+  const handleUpload = async () => {
+    if (!recording || !email) {
+      alert("Please complete the recording and enter your email before uploading.")
+      return
+    }
+
+    const formData = new FormData()
+    formData.append("audio", recording)
+    formData.append("email", email)
+
+    try {
+      // TODO: Replace example.com with API endpoint
+      // add as environment variable???
+      const response = await axios.post(`example.com/recordings/upload`, formData)
+      console.log("Upload successful:", response.data)
+    } catch (error) {
+      console.error("Error uploading audio:", error)
+    }
+  }
 
   return (
     <div className="flex items-center justify-center h-screen w-full">
@@ -112,6 +135,7 @@ export default function RecordingView() {
             required
           />
           <button
+            onClick={handleUpload}
             className="w-full mt-2 p-2 bg-green-400 hover:bg-green-500 rounded">
             Upload Recording
             <svg
