@@ -125,7 +125,13 @@ export default function RecordingView() {
         </div>
 
         {/* Audio Playback */}
-        
+        <div className="flex items-center w-full">
+          {audioURL && (
+            <div className="mt-10 m-auto">
+              <audio controls src={audioURL}></audio>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
