@@ -69,7 +69,7 @@ export default function RecordingView() {
     try {
       // TODO: Replace example.com with API endpoint
       // add as environment variable???
-      const response = await axios.post(`example.com/recordings/upload`, formData)
+      const response = await axios.post(`https://webhook.site/e702dfcd-b9f7-49f8-9ed7-a957961d7ad6`, formData)
       console.log("Upload successful:", response.data)
     } catch (error) {
       console.error("Error uploading audio:", error)
