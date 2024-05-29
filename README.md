@@ -25,3 +25,25 @@ Please provide us with a zip of your code or a link to a repository.
 ## Discussion
 
 Prepare to discuss the software engineering aspects such as maintainability, extendability, stability, performance, security.
+
+
+## How to run the project
+- we need to run the backend and the frontend separately.
+- we need RabbitMQ to be installed and running on the default port.
+
+### Backend
+```bash
+$ npm run dev
+
+$ npm run worker
+```
+
+### Frontend
+```bash
+npm run dev
+```
+
+### RabbitMQ
+```bash
+docker run -d --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
+```
