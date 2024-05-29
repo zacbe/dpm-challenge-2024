@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import express, { Express, Response, Request } from "express";
 
 import { recordingRouter } from './api/routes';
+import { errorHandler } from './middleware';
 import { sequelize } from './models';
 
 
@@ -21,5 +22,7 @@ app.set('models', sequelize.models);
 
 // Routes
 app.use('/api/v1', recordingRouter);
+
+app.use(errorHandler);
 
 export { app }
