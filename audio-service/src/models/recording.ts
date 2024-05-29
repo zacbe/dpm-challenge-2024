@@ -1,5 +1,6 @@
 
 import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Recording extends Model<InferAttributes<Recording>, InferCreationAttributes<Recording>> {
   declare id: string;
@@ -11,8 +12,8 @@ export function initRecording(sequelize: Sequelize): typeof Recording {
   Recording.init(
     {
       id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: uuidv4,
         primaryKey: true,
       },
       recording: {
