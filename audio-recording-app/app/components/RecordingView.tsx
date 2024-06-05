@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import axios from "axios"
+import Events from './Events'
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -162,6 +163,11 @@ export default function RecordingView() {
               <audio controls src={audioURL}></audio>
             </div>
           )}
+        </div>
+
+        {/* SSE Events */}
+        <div className="w-1/2 mt-10 m-auto">
+          <Events />
         </div>
       </div>
     </div>
