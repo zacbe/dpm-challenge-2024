@@ -95,6 +95,7 @@ Backend:
 - Implement SSE endpoint in the web node.
 - Implement mechanisms for the web node to pull completion messages from the queue.
 - Integration tests for the backend service.
+  
 Frontend:
 - Implement SSE for the web client to receive notifications when the audio is corrected.
 - Implement mechanisms for the web client to query processed recordings.
