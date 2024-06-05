@@ -1,4 +1,4 @@
 import { insertRecording, findRecordingById } from './recordingService';
-import { connectRabbitMQ, publishToQueue } from './rabbitMQService';
+import { connectRabbitMQ, publishToQueue, consumeCompletionNotifications } from './rabbitMQService';
 
-export { insertRecording, findRecordingById, connectRabbitMQ, publishToQueue};
+export { insertRecording, findRecordingById, connectRabbitMQ, publishToQueue, consumeCompletionNotifications};
