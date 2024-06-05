@@ -1,7 +1,8 @@
 import amqp from 'amqplib';
 import { env } from './utils/envConfig';
-import { publishToQueue, connectRabbitMQ, } from './services';
+import { publishToQueue, connectRabbitMQ, findRecordingById } from './services';
 import audioServiceClient from './libs/audioServiceClient';
+import { Recording } from './models/recording';
 
 const JOB_QUEUE = env.JOB_QUEUE;
 const RABBITMQ_URL = env.RABBITMQ_URL;
@@ -12,7 +13,7 @@ const processRecording = async (message: string) => {
   console.log(`Processing recording with ID: ${id}, User Email: ${user_email}, Timestamp: ${timestamp}`);
 
   // fetch the recording from the database
-  const recording = await audioServiceClient(id)
+  const recording = await findRecordingById(id, { Recording })
 
   // mock processing and correction of the audio
   await audioServiceClient(recording)
@@ -55,4 +56,5 @@ const startWorker = async () => {
     console.error('Failed to start worker:', error);
   }
 };
+
 startWorker();
