@@ -20,7 +20,6 @@ export const connectRabbitMQ = async (): Promise<void> => {
   }
 };
 
-
 export const publishToQueue = async (queue: string, message: string) => {
   if (!channel) {
     throw new Error('Channel is not created. Please connect to RabbitMQ first.');

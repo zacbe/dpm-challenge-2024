@@ -22,8 +22,6 @@ async function insertRecording(body: RecordingInput, models: Models): Promise<ty
   }
 }
 
-
-
 async function findRecordingById(id: string, models: Models): Promise<typeof Recording | null> {
   const { Recording } = models;
   const recording = await Recording.findByPk(id);
